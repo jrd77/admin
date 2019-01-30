@@ -31,8 +31,8 @@ $(function () {
             records: "page.totalCount"
         },
         prmNames : {
-            page:"page", 
-            rows:"limit", 
+            page:"pageIndex",
+            rows:"pageSize",
             order: "order"
         },
         gridComplete:function(){

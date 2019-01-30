@@ -16,8 +16,12 @@
 
 package com.hndfsj.common.utils;
 
+import org.springframework.util.CollectionUtils;
+
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * 返回数据
@@ -28,7 +32,10 @@ import java.util.Map;
  */
 public class R extends HashMap<String, Object> {
 	private static final long serialVersionUID = 1L;
-	
+	private int pageIndex=0;
+	private int pageSize=0;
+	private int pages=0;
+	private int itemCount=0;
 	public R() {
 		put("code", 0);
 		put("msg", "success");
@@ -64,8 +71,29 @@ public class R extends HashMap<String, Object> {
 	public static R ok() {
 		return new R();
 	}
-//	public R addPage(Page){
-//
+//	public R addPage(PageUtils pageUtils){
+//		if(pageUtils.getCurrPage()>0){
+//			put("pageIndex",pageUtils.getCurrPage());
+//		}else{
+//			put("pageIndex",pageIndex);
+//		}
+//		if(pageUtils.getPageSize()>0){
+//			put("pageSize",pageUtils.getPageSize());
+//		}else{
+//			put("pageSize",pageSize);
+//		}
+//		if(!CollectionUtils.isEmpty(pageUtils.getList())){
+//			put("itemCount",pageUtils.getList().size());
+//			put("respList",pageUtils.getList());
+//		}else{
+//			put("itemCount",itemCount);
+//		}
+//		if(pageUtils.getTotalPage()>0){
+//			put("pages",pageUtils.getTotalPage());
+//		}else{
+//			put("pages",pages);
+//		}
+//		return this;
 //	}
 	@Override
 	public R put(String key, Object value) {
