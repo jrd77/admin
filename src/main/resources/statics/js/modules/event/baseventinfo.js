@@ -45,6 +45,8 @@ var vm = new Vue({
 	data:{
 		showList: true,
 		title: null,
+        assign:true,
+        nextPerson:null,
 		basEventInfo: {}
 	},
 	methods: {

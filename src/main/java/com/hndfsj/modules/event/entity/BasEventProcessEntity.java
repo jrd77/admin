@@ -90,7 +90,7 @@ public class BasEventProcessEntity implements Serializable {
          * 创建人id
          */
             @ApiModelProperty(value = "创建人id")
-    private String createId;
+    private Long createId;
             /**
          * 备注
          */
@@ -169,14 +169,14 @@ public class BasEventProcessEntity implements Serializable {
             /**
          * 设置：创建人id
          */
-        public void setCreateId(String createId) {
+        public void setCreateId(Long createId) {
             this.createId = createId;
         }
 
         /**
          * 获取：创建人id
          */
-        public String getCreateId() {
+        public Long getCreateId() {
             return createId;
         }
             /**

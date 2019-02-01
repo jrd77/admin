@@ -1,9 +1,18 @@
 package com.hndfsj.modules.event.controller;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
+
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.hndfsj.common.enums.StatusEnum;
+import com.hndfsj.common.enums.TypeEnum;
 import com.hndfsj.common.validator.group.AddGroup;
 import com.hndfsj.common.validator.group.UpdateGroup;
+import com.hndfsj.modules.sys.entity.SysUserEntity;
+import com.hndfsj.modules.sys.service.SysUserService;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.validation.annotation.Validated;
 import com.hndfsj.common.validator.ValidatorUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -40,7 +49,8 @@ import com.hndfsj.common.utils.R;
 public class BasEventInfoController {
     @Autowired
     private BasEventInfoService basEventInfoService;
-
+    @Autowired
+    private SysUserService sysUserService;
     /**
      * 列表
      */
@@ -73,11 +83,26 @@ public class BasEventInfoController {
     @ApiOperation(value = "事件基础信息保存",tags = "事件基础信息保存")
     @RequiresPermissions("event:baseventinfo:save")
     public R save(@RequestBody @Validated(AddGroup.class) BasEventInfoEntity basEventInfo){
+        final SysUserEntity userEntity = (SysUserEntity) (SecurityUtils.getSubject().getPrincipal());
+        basEventInfo.setCreateId(userEntity.getUserId());
+        basEventInfo.setCreator(userEntity.getRealname());
+        basEventInfo.setStatus(StatusEnum.EventStatus.已上报.getStatus());
+        basEventInfo.setCreateTime(LocalDateTime.now());
         basEventInfoService.insert(basEventInfo);
-
         return R.ok();
     }
-
+    /**
+     * 列表
+     */
+    @GetMapping("/userlist")
+    @ApiOperation(value = "获取用户列表",tags = "获取用户列表")
+    @RequiresPermissions("event:baseventinfo:userlist")
+    public R userList(@RequestParam Map<String, Object> params){
+        EntityWrapper<SysUserEntity> userWrapper=new EntityWrapper<>();
+        userWrapper.eq(SysUserEntity.TYPE, TypeEnum.UserTypeEnum.普通用户.getType());
+        final List<SysUserEntity> userList = sysUserService.selectList(userWrapper);
+        return R.ok(userList);
+    }
     /**
      * 修改
      */
@@ -86,7 +111,7 @@ public class BasEventInfoController {
     @RequiresPermissions("event:baseventinfo:update")
     public R update(@RequestBody @Validated(UpdateGroup.class) BasEventInfoEntity basEventInfo){
         basEventInfoService.updateAllColumnById(basEventInfo);//全部更新
-        
+
         return R.ok();
     }
 
@@ -98,7 +123,6 @@ public class BasEventInfoController {
     @RequiresPermissions("event:baseventinfo:delete")
     public R delete(@RequestBody Long[] ids){
         basEventInfoService.deleteBatchIds(Arrays.asList(ids));
-
         return R.ok();
     }
 

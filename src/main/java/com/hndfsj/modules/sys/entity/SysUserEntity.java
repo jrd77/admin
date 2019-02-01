@@ -23,6 +23,7 @@ import com.baomidou.mybatisplus.annotations.TableName;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.hndfsj.common.validator.group.AddGroup;
 import com.hndfsj.common.validator.group.UpdateGroup;
+import lombok.Data;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -40,9 +41,56 @@ import java.util.List;
  * @date 2016年9月18日 上午9:28:55
  */
 @TableName("sys_user")
+@Data
 public class SysUserEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+	//columns start
+	/**
+	 *
+	 */
+	public static final String USERID="sys_user.user_id" ;
+	/**
+	 * 用户名
+	 */
+	public static final String USERNAME="sys_user.username" ;
+	/**
+	 * 密码
+	 */
+	public static final String PASSWORD="sys_user.password" ;
+	/**
+	 *
+	 */
+	public static final String REALNAME="sys_user.realname" ;
+	/**
+	 * 盐
+	 */
+	public static final String SALT="sys_user.salt" ;
+	/**
+	 * 邮箱
+	 */
+	public static final String EMAIL="sys_user.email" ;
+	/**
+	 * 手机号
+	 */
+	public static final String MOBILE="sys_user.mobile" ;
+	/**
+	 * 状态  0：禁用   1：正常
+	 */
+	public static final String STATUS="sys_user.status" ;
+	/**
+	 * 部门ID
+	 */
+	public static final String DEPTID="sys_user.dept_id" ;
+	/**
+	 * 创建时间
+	 */
+	public static final String CREATETIME="sys_user.create_time" ;
+	/**
+	 * 1 普通用户 2 开发
+	 */
+	public static final String TYPE="sys_user.type" ;
+	public static final String TABLENAME = "sys_user" ;
+	//columns end
 	/**
 	 * 用户ID
 	 */
@@ -100,7 +148,14 @@ public class SysUserEntity implements Serializable {
 	 */
 	@NotNull(message="部门不能为空", groups = {AddGroup.class, UpdateGroup.class})
 	private Long deptId;
-
+	/**
+	 * 姓名
+	 */
+	private String realname;
+	/**
+	 * 用户类型 1.用户 2.开发人员
+	 */
+	private Integer type;
 	/**
 	 * 部门名称
 	 */

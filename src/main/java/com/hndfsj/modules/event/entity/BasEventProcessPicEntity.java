@@ -64,7 +64,7 @@ public class BasEventProcessPicEntity implements Serializable {
          * 
          */
             @ApiModelProperty(value = "")
-    private String createId;
+    private Long createId;
             /**
          * 
          */
@@ -107,14 +107,14 @@ public class BasEventProcessPicEntity implements Serializable {
             /**
          * 设置：
          */
-        public void setCreateId(String createId) {
+        public void setCreateId(Long createId) {
             this.createId = createId;
         }
 
         /**
          * 获取：
          */
-        public String getCreateId() {
+        public Long getCreateId() {
             return createId;
         }
             /**

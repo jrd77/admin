@@ -18,9 +18,7 @@ package com.hndfsj.common.utils;
 
 import org.springframework.util.CollectionUtils;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -40,7 +38,15 @@ public class R extends HashMap<String, Object> {
 		put("code", 0);
 		put("msg", "success");
 	}
-	
+	public R(Object obj) {
+		put("code", 0);
+		put("msg", "success");
+		if(obj instanceof Collection){
+			put("respList",obj);
+		}else{
+			put("respBody",obj);
+		}
+	}
 	public static R error() {
 		return error(500, "未知异常，请联系管理员");
 	}
@@ -70,6 +76,9 @@ public class R extends HashMap<String, Object> {
 	
 	public static R ok() {
 		return new R();
+	}
+	public static R ok(Object o) {
+		return new R(o);
 	}
 //	public R addPage(PageUtils pageUtils){
 //		if(pageUtils.getCurrPage()>0){

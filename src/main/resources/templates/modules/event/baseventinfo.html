@@ -25,12 +25,6 @@
     <div v-show="!showList" class="panel panel-default">
         <div class="panel-heading">{{title}}</div>
         <form class="form-horizontal">
-							                    <div class="form-group">
-                        <div class="col-sm-2 control-label"></div>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" v-model="basEventInfo.id" placeholder=""/>
-                        </div>
-                    </div>
 											                    <div class="form-group">
                         <div class="col-sm-2 control-label">标题</div>
                         <div class="col-sm-10">
@@ -43,43 +37,34 @@
                             <input type="text" class="form-control" v-model="basEventInfo.content" placeholder="事件内容"/>
                         </div>
                     </div>
-											                    <div class="form-group">
-                        <div class="col-sm-2 control-label">事件类型 1保洁 2保修 3 其他</div>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" v-model="basEventInfo.type" placeholder="事件类型 1保洁 2保修 3 其他"/>
-                        </div>
-                    </div>
-											                    <div class="form-group">
-                        <div class="col-sm-2 control-label">状态 1.上报 2.处置中 3已结束</div>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" v-model="basEventInfo.status" placeholder="状态 1.上报 2.处置中 3已结束"/>
-                        </div>
-                    </div>
-											                    <div class="form-group">
-                        <div class="col-sm-2 control-label">创建时间</div>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" v-model="basEventInfo.createTime" placeholder="创建时间"/>
-                        </div>
-                    </div>
-											                    <div class="form-group">
-                        <div class="col-sm-2 control-label">修改时间</div>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" v-model="basEventInfo.modifyTime" placeholder="修改时间"/>
-                        </div>
-                    </div>
-											                    <div class="form-group">
-                        <div class="col-sm-2 control-label">创建人id</div>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" v-model="basEventInfo.createId" placeholder="创建人id"/>
-                        </div>
-                    </div>
-											                    <div class="form-group">
-                        <div class="col-sm-2 control-label"></div>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" v-model="basEventInfo.creator" placeholder=""/>
-                        </div>
-                    </div>
-							            <div class="form-group">
+            <div class="form-group">
+            <div class="col-sm-2 control-label">事件类型 </div>
+            <div class="col-sm-10">
+            <input name="eventtype" type="radio" checked='checked' id="eventtypeone" value="1" v-model="basEventInfo.type" >
+            <label for="eventtypeone">1保洁</label>
+            <input name="eventtype" type="radio" id="eventtypetwo" value="2" v-model="basEventInfo.type">
+            <label for="eventtypetwo">2保修</label>
+            <input name="eventtype" type="radio" id="eventtypethree" value="3" v-model="basEventInfo.type">
+            <label for="eventtypethree">3其他</label>
+            </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-2 control-label">是否指派人员处理 </div>
+                <div class="col-sm-10">
+                    <input name="assign" type="radio" id="handlingYes" value=true v-model="assign" >
+                    <label for="handlingYes">是</label>
+                    <input name="assign" type="radio" checked='checked' id="handlingNo" value=false v-model="assign">
+                    <label for="handlingNo">否</label>
+                </div>
+                <select v-show="{{assign}}" v-model="nextPerson">
+                    <option disabled value="">请选择</option>
+                    <option>A</option>
+                    <option>B</option>
+                    <option>C</option>
+                </select>
+            </div>
+			<div class="form-group">
                 <div class="col-sm-2 control-label"></div>
                 <input type="button" class="btn btn-primary" @click="saveOrUpdate" value="确定"/>
                 &nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
